@@ -56,13 +56,16 @@ define(['fabric'], function(fabric) {
           fill: 'rgba(100,100,100, 0.3)'
         }
       );
-      console.log('IPA?', fabric.Polyline.ATTRIBUTE_NAMES);
+
       const polyLine = new fabric.Polyline(
-        [{ x: 100, y: 50 }, { x: 50, y: 100 }, { x: 150, y: 100 }],
+        [
+          { x: 150, y: 50 },
+          { x: 180, y: 70 },
+          { x: 150, y: 100 },
+          { x: 180, y: 130 }
+        ],
         {
-          // left: 0,
-          // top: 0,
-          // fill: 'rgba(100,100,100, 0.7)',
+          fill: 'rgba(2,2,2,0.2)',
           stroke: 'rgba(100,100,100, 0.2)',
           strokeWidth: 1,
           strokeOpacity: 0.2

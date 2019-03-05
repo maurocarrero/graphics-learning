@@ -2,8 +2,10 @@ requirejs.config({
   urlArgs: 'bust=' + new Date().getTime(), // Prevent cache technique
   paths: {
     fabric: 'lib/fabric',
+    hierarchy: 'hierarchy-inheritance',
     basics: 'basics',
-    shapes: 'shapes'
+    shapes: 'shapes',
+    canvas: 'canvas'
   },
   shim: {
     fabric: {
@@ -12,7 +14,13 @@ requirejs.config({
   }
 });
 
-requirejs(['fabric', 'basics', 'shapes'], function(fabric, basics, shapes) {
+requirejs(['fabric', 'basics', 'shapes', 'hierarchy', 'canvas'], function(
+  fabric,
+  basics,
+  shapes,
+  hierarchy,
+  canvas
+) {
   // Canvas native API
   const nativeCanvas = document.querySelector('#native');
 
@@ -25,4 +33,6 @@ requirejs(['fabric', 'basics', 'shapes'], function(fabric, basics, shapes) {
   basics.runNative(nativeCanvas);
   basics.runFabric(fabricCanvas);
   shapes.run(fabricCanvas);
+  hierarchy.run(fabricCanvas);
+  canvas.run();
 });

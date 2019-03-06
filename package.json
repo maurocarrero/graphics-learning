@@ -1,0 +1,27 @@
+{
+  "name": "fabricjs-learning",
+  "version": "1.0.0",
+  "description": "Learning Fabric.js, canvas, graphics.",
+  "main": "index.html",
+  "scripts": {
+    "start": "serve",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maurocarrero/fabricjs-learning.git"
+  },
+  "keywords": [
+    "fabric.js",
+    "canvas"
+  ],
+  "author": "Mauro Carrero",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/maurocarrero/fabricjs-learning/issues"
+  },
+  "homepage": "https://github.com/maurocarrero/fabricjs-learning#readme",
+  "dependencies": {
+    "serve": "^10.1.2"
+  }
+}

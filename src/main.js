@@ -6,7 +6,11 @@ requirejs.config({
     basics: 'basics',
     shapes: 'shapes',
     canvas: 'canvas',
-    images: 'images'
+    images: 'images',
+    canvasMain: 'canvas/main',
+    canvasDrawingPaths: 'canvas/drawingPaths',
+    canvasCurvesAndArcs: 'canvas/curvesAndArcs',
+    canvasDrawingStyles: 'canvas/drawingStyles'
   },
   shim: {
     fabric: {
@@ -16,8 +20,8 @@ requirejs.config({
 });
 
 requirejs(
-  ['fabric', 'basics', 'shapes', 'hierarchy', 'canvas', 'images'],
-  function(fabric, basics, shapes, hierarchy, canvas, images) {
+  ['fabric', 'basics', 'shapes', 'hierarchy', 'canvas', 'images', 'canvasMain'],
+  function (fabric, basics, shapes, hierarchy, canvas, images, canvasMain) {
     // Canvas native API
     const nativeCanvas = document.querySelector('#native');
 
@@ -33,5 +37,6 @@ requirejs(
     hierarchy.run(fabricCanvas);
     canvas.run();
     images.run();
+    canvasMain.run();
   }
 );

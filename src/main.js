@@ -5,7 +5,8 @@ requirejs.config({
     hierarchy: 'hierarchy-inheritance',
     basics: 'basics',
     shapes: 'shapes',
-    canvas: 'canvas'
+    canvas: 'canvas',
+    images: 'images'
   },
   shim: {
     fabric: {
@@ -14,25 +15,23 @@ requirejs.config({
   }
 });
 
-requirejs(['fabric', 'basics', 'shapes', 'hierarchy', 'canvas'], function(
-  fabric,
-  basics,
-  shapes,
-  hierarchy,
-  canvas
-) {
-  // Canvas native API
-  const nativeCanvas = document.querySelector('#native');
+requirejs(
+  ['fabric', 'basics', 'shapes', 'hierarchy', 'canvas', 'images'],
+  function(fabric, basics, shapes, hierarchy, canvas, images) {
+    // Canvas native API
+    const nativeCanvas = document.querySelector('#native');
 
-  // Fabric.js API
-  // create a wrapper around native Canvas element
-  const fabricCanvas = new fabric.Canvas('fabric');
-  fabricCanvas.setHeight(200);
-  fabricCanvas.setWidth(200);
+    // Fabric.js API
+    // create a wrapper around native Canvas element
+    const fabricCanvas = new fabric.Canvas('fabric');
+    fabricCanvas.setHeight(200);
+    fabricCanvas.setWidth(200);
 
-  basics.runNative(nativeCanvas);
-  basics.runFabric(fabricCanvas);
-  shapes.run(fabricCanvas);
-  hierarchy.run(fabricCanvas);
-  canvas.run();
-});
+    basics.runNative(nativeCanvas);
+    basics.runFabric(fabricCanvas);
+    shapes.run(fabricCanvas);
+    hierarchy.run(fabricCanvas);
+    canvas.run();
+    images.run();
+  }
+);

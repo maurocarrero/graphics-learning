@@ -1,13 +1,9 @@
-define(['fabric'], function(fabric) {
+define(['fabric', 'utils'], function(fabric, utils) {
   return {
     run: function() {
-      const canvasEl = document.createElement('canvas');
-      canvasEl.id = 'fabricCanvas';
-      canvasEl.style.border = '1px solid darkgreen';
+      const canvasEl = utils.createCanvas();
 
-      document.body.appendChild(canvasEl);
-
-      const canvas = new fabric.StaticCanvas('fabricCanvas', {
+      const canvas = new fabric.StaticCanvas(canvasEl.id, {
         width: 200,
         height: 200,
         backgroundColor: 'rgb(100,100,200)',
@@ -15,10 +11,16 @@ define(['fabric'], function(fabric) {
         selectionLineWidth: 2
       });
 
-      canvas.setBackgroundImage('http://localhost:5000/src/assets/mmm.png');
-      canvas.onFpsUpdate = function() {
-        console.log('FPS updated.');
-      };
+      canvas.setBackgroundImage(
+        utils.getImageUrl(),
+        canvas.renderAll.bind(canvas),
+        {
+          top: 0,
+          left: 0,
+          scaleX: 0.5,
+          scaleY: 0.5
+        }
+      );
 
       canvas.add(
         new fabric.Circle({

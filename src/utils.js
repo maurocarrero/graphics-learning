@@ -1,5 +1,5 @@
 define(() => {
-  const imageUrl = 'http://localhost:5000/src/assets/mmm.png';
+  const imageUrl = 'src/assets/mmm.png';
 
   function getRadiansFromDegrees(degrees) {
     return degrees * (Math.PI / 180);
@@ -31,8 +31,8 @@ define(() => {
     return canvasEl;
   }
 
-  function createCanvasAndGetContext() {
-    const canvas = createCanvas(200, 200);
+  function createCanvasAndGetContext(w, h) {
+    const canvas = createCanvas(w, h);
     ctx = canvas.getContext('2d');
     return ctx;
   };

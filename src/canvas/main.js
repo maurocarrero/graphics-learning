@@ -3,13 +3,15 @@ define([
   'canvasCurvesAndArcs',
   'canvasDrawingStyles',
   'canvasGradientFills',
-  'canvasText'
+  'canvasText',
+  'canvasImages'
 ], function(
   canvasDrawingPaths,
   canvasCurvesAndArcs,
   canvasDrawingStyles,
   canvasGradientFills,
-  canvasText
+  canvasText,
+  canvasImages
 ) {
   return {
     run: function() {
@@ -18,6 +20,7 @@ define([
       canvasDrawingStyles.run();
       canvasGradientFills.run();
       canvasText.run();
+      canvasImages.run();
     }
   };
 });

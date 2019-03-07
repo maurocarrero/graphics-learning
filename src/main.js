@@ -13,7 +13,8 @@ requirejs.config({
     canvasCurvesAndArcs: 'canvas/curvesAndArcs',
     canvasDrawingStyles: 'canvas/drawingStyles',
     canvasGradientFills: 'canvas/gradientFills',
-    canvasText: 'canvas/text'
+    canvasText: 'canvas/text',
+    canvasImages: 'canvas/images'
   },
   shim: {
     fabric: {

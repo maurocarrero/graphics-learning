@@ -1,4 +1,4 @@
-define(['utils'], function (utils) {
+define(['utils'], function(utils) {
   function fourBoxes(ctx) {
     ctx.fillStyle = 'rgba(120, 230, 150, .5)';
     ctx.strokeStyle = 'red';
@@ -27,7 +27,7 @@ define(['utils'], function (utils) {
     function draw(ctx) {
       ctx.beginPath();
       ctx.moveTo(20, 30);
-      ctx.lineTo(80, 30)
+      ctx.lineTo(80, 30);
       ctx.stroke();
 
       ctx.beginPath();
@@ -47,18 +47,18 @@ define(['utils'], function (utils) {
     ctx.strokeStyle = '#999999';
     ctx.lineWidth = 10;
     draw(ctx);
-    
+
     ctx.strokeStyle = '#ff0000';
     ctx.lineWidth = 1;
     draw(ctx);
   }
 
   return {
-    run: function () {
+    run: function() {
       fourBoxes(utils.createCanvasAndGetContext());
       threeShapes(utils.createCanvasAndGetContext(), 'butt', 'miter'); // DEFAULTS
       threeShapes(utils.createCanvasAndGetContext(), 'square', 'bevel');
       threeShapes(utils.createCanvasAndGetContext(), 'round', 'round');
     }
-  }
+  };
 });

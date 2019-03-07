@@ -5,10 +5,10 @@ define(['utils'], function(utils) {
 
     if (config.type === 'linear') {
       gradient = ctx.createLinearGradient(
-        config.x,
-        config.y,
-        config.w,
-        config.h
+        config.x0,
+        config.y0,
+        config.x1,
+        config.y1
       );
     } else {
       gradient = ctx.createRadialGradient(
@@ -31,13 +31,23 @@ define(['utils'], function(utils) {
     ctx.fillRect(0, 0, 200, 200);
   }
 
+  function createSphere() {
+    const ctx = utils.createCanvasAndGetContext();
+    const gradient = ctx.createRadialGradient(110, 90, 70, 120, 80, 0);
+    gradient.addColorStop(0, 'black');
+    gradient.addColorStop(1, 'white');
+    ctx.fillStyle = gradient;
+    ctx.arc(100, 100, 50, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
   return {
     run: function() {
       createGradient({
-        x: 0,
-        y: 0,
-        w: 200,
-        h: 200,
+        x0: 0,
+        y0: 0,
+        x1: 200,
+        y1: 200,
         firstColor: '#1ea1ea',
         secondColor: '#ae1ae1',
         thirdColor: '#1ae1ae',
@@ -47,10 +57,10 @@ define(['utils'], function(utils) {
       });
 
       createGradient({
-        x: 0,
-        y: 200,
-        w: 200,
-        h: 0,
+        x0: 0,
+        y0: 200,
+        x1: 200,
+        y1: 0,
         firstColor: '#1ea1ea',
         secondColor: '#ae1ae1',
         thirdColor: '#1ae1ae',
@@ -60,10 +70,10 @@ define(['utils'], function(utils) {
       });
 
       createGradient({
-        x: 100,
-        y: 0,
-        w: 100,
-        h: 200,
+        x0: 100,
+        y0: 0,
+        x1: 100,
+        y1: 200,
         firstColor: '#1ea1ea',
         secondColor: '#ae1ae1',
         thirdColor: '#1ae1ae',
@@ -73,10 +83,10 @@ define(['utils'], function(utils) {
       });
 
       createGradient({
-        x: 100,
-        y: 0,
-        w: 100,
-        h: 200,
+        x0: 100,
+        y0: 0,
+        x1: 100,
+        y1: 200,
         firstColor: '#1ea1ea',
         secondColor: '#ae1ae1',
         thirdColor: '#1ae1ae',
@@ -114,6 +124,8 @@ define(['utils'], function(utils) {
         fifthColor: 'green',
         type: 'radial'
       });
+
+      createSphere();
     }
   };
 });

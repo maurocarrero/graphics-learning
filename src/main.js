@@ -8,13 +8,16 @@ requirejs.config({
     shapes: 'fabric/shapes',
     canvas: 'fabric/canvas',
     images: 'fabric/images',
-    canvasMain: 'canvas/main',
     canvasDrawingPaths: 'canvas/drawingPaths',
     canvasCurvesAndArcs: 'canvas/curvesAndArcs',
     canvasDrawingStyles: 'canvas/drawingStyles',
     canvasGradientFills: 'canvas/gradientFills',
     canvasText: 'canvas/text',
-    canvasImages: 'canvas/images'
+    canvasMain: 'canvas/main',
+    canvasImages: 'canvas/images',
+    canvasEffects: 'canvas/effects',
+    canvasShadows: 'canvas/shadows',
+    canvasTransformations: 'canvas/transformations'
   },
   shim: {
     fabric: {
@@ -23,10 +26,7 @@ requirejs.config({
   }
 });
 
-requirejs(
-  ['fabricMain', 'canvasMain'],
-  function(canvasMain, fabricMain) {
-    fabricMain.run();
-    canvasMain.run();
-  }
-);
+requirejs(['canvasMain', 'fabricMain'], function(canvasMain, fabricMain) {
+  fabricMain.run();
+  canvasMain.run();
+});

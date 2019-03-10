@@ -1,4 +1,4 @@
-define(['utils'], function (utils) {
+define(['utils'], function(utils) {
   const CANVAS_WIDTH = 400;
 
   function simpleDefaultText(ctx, text) {
@@ -26,7 +26,7 @@ define(['utils'], function (utils) {
     ctx.textAlign = 'start'; // same as left in this case
   }
 
-  function drawLine (ctx, y) {
+  function drawLine(ctx, y) {
     ctx.beginPath();
     ctx.lineStyle = '1px solid blue';
     ctx.moveTo(0, y);
@@ -45,7 +45,7 @@ define(['utils'], function (utils) {
 
     drawLine(ctx, 120);
 
-    const topX = 5
+    const topX = 5;
 
     ctx.textBaseline = 'top';
     ctx.fillText('top', topX, 120);
@@ -79,11 +79,11 @@ define(['utils'], function (utils) {
     ctx.textBaseline = 'top';
     ctx.textAlign = 'center';
     ctx.fillText(text, x, y);
-    ctx.strokeRect(x - (w / 2), y, w, 16);
+    ctx.strokeRect(x - w / 2, y, w, 16);
   }
 
   return {
-    run: function () {
+    run: function() {
       const text = 'Hola mundo.';
       const canvas = utils.createCanvas(CANVAS_WIDTH, 200);
       const ctx = canvas.getContext('2d');

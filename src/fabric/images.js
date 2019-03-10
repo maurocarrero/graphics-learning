@@ -1,9 +1,11 @@
 define(['fabric', 'utils'], function(fabric, utils) {
   return {
     run: function() {
-      const imgElement = utils.createImage();
+      const imgUrl = utils.getImages().mmmImage;
+      const imgElement = utils.createImage(imgUrl);
       const canvas = utils.createFabricStaticCanvas();
 
+      // imgElement.addEventListener('load', function() {
       const imageInstance = new fabric.Image(imgElement, {
         left: 50,
         top: -40,
@@ -11,8 +13,8 @@ define(['fabric', 'utils'], function(fabric, utils) {
         scaleY: 0.5,
         scaleX: 0.5
       });
-
-      const imgUrl = utils.getImageUrl();
+      canvas.add(imageInstance);
+      // });
 
       fabric.Image.fromURL(imgUrl, function(oImg) {
         oImg.set({
@@ -23,8 +25,6 @@ define(['fabric', 'utils'], function(fabric, utils) {
         });
         canvas.add(oImg);
       });
-
-      canvas.add(imageInstance);
     }
   };
 });

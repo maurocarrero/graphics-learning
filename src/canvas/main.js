@@ -4,14 +4,20 @@ define([
   'canvasDrawingStyles',
   'canvasGradientFills',
   'canvasText',
-  'canvasImages'
+  'canvasImages',
+  'canvasEffects',
+  'canvasShadows',
+  'canvasTransformations'
 ], function(
   canvasDrawingPaths,
   canvasCurvesAndArcs,
   canvasDrawingStyles,
   canvasGradientFills,
   canvasText,
-  canvasImages
+  canvasImages,
+  canvasEffects,
+  canvasShadows,
+  canvasTransformations
 ) {
   return {
     run: function() {
@@ -21,6 +27,9 @@ define([
       canvasGradientFills.run();
       canvasText.run();
       canvasImages.run();
+      canvasEffects.run();
+      canvasShadows.run();
+      canvasTransformations.run();
     }
   };
 });

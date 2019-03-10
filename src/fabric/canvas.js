@@ -12,7 +12,7 @@ define(['fabric', 'utils'], function(fabric, utils) {
       });
 
       canvas.setBackgroundImage(
-        utils.getImageUrl(),
+        utils.getImages().mmmImage,
         canvas.renderAll.bind(canvas),
         {
           top: 0,

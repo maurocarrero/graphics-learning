@@ -1,11 +1,27 @@
 define(() => {
-  const imageUrl = 'src/assets/mmm.png';
+  const images = {
+    mmmImage: 'src/assets/mmm.png',
+    angryCatSprite: 'src/assets/aSkBr.png',
+    littleBoySprite: 'src/assets/3e4cOV1.png',
+    skeletonSprite: 'src/assets/mvqg4CI.png',
+    fireSprite: 'src/assets/fire-sprite-sheet.png',
+    lizardSprite: 'src/assets/spritesheet.png',
+    blueSprite: 'src/assets/blue.png',
+    horseSprite: 'src/assets/horse.png',
+    jumpingPigSprite: 'src/assets/jumpingPig.png',
+    figureSprite: 'src/assets/figure.png',
+    wowSprite: 'src/assets/wow.png',
+    womanSprite: 'src/assets/woman.png',
+    bearSprite: 'src/assets/2dtoonbear.png',
+    explosionSprite:
+      'src/assets/kissclipart-explosion-sprite-sheet-clipart-sprite-explosion-an-a4229d97dc312fa5.png'
+  };
 
   function getRadiansFromDegrees(degrees) {
     return degrees * (Math.PI / 180);
   }
 
-  function createImage() {
+  function createImage(imageUrl) {
     const img = new Image();
     img.src = imageUrl;
     img.style = 'display: none;';
@@ -35,10 +51,10 @@ define(() => {
     const canvas = createCanvas(w, h);
     ctx = canvas.getContext('2d');
     return ctx;
-  };
+  }
 
-  function getImageUrl() {
-    return imageUrl;
+  function getImages() {
+    return images;
   }
 
   function createFabricStaticCanvas() {
@@ -55,7 +71,7 @@ define(() => {
     createCanvas,
     createCanvasAndGetContext,
     createFabricStaticCanvas,
-    getRadiansFromDegrees,
-    getImageUrl
+    getImages,
+    getRadiansFromDegrees
   };
 });

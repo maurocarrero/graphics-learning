@@ -17,7 +17,10 @@ requirejs.config({
     canvasImages: 'canvas/images',
     canvasEffects: 'canvas/effects',
     canvasShadows: 'canvas/shadows',
-    canvasTransformations: 'canvas/transformations'
+    canvasTransformations: 'canvas/transformations',
+    canvasPixels: 'canvas/pixels',
+    canvasEvents: 'canvas/events',
+    canvasAnimations: 'canvas/animations'
   },
   shim: {
     fabric: {
@@ -27,6 +30,6 @@ requirejs.config({
 });
 
 requirejs(['canvasMain', 'fabricMain'], function(canvasMain, fabricMain) {
-  fabricMain.run();
+  // fabricMain.run();
   canvasMain.run();
 });

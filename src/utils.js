@@ -57,6 +57,14 @@ define(() => {
     return images;
   }
 
+  function getRandom256() {
+    return parseInt(Math.random() * 256, 10);
+  }
+
+  function getRandomColor() {
+    return `rgb(${getRandom256()}, ${getRandom256()}, ${getRandom256()})`;
+  }
+
   function createFabricStaticCanvas() {
     const canvasEl = createCanvas();
     return new fabric.StaticCanvas(canvasEl.id, {
@@ -72,6 +80,7 @@ define(() => {
     createCanvasAndGetContext,
     createFabricStaticCanvas,
     getImages,
-    getRadiansFromDegrees
+    getRadiansFromDegrees,
+    getRandomColor
   };
 });

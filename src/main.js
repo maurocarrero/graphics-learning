@@ -30,6 +30,6 @@ requirejs.config({
 });
 
 requirejs(['canvasMain', 'fabricMain'], function(canvasMain, fabricMain) {
-  // fabricMain.run();
   canvasMain.run();
+  fabricMain.run();
 });

@@ -34,8 +34,9 @@ define(() => {
 
     canvasEl.width = (w || 200) * 2;
     canvasEl.height = (h || 200) * 2;
-    canvasEl.style.width = canvasEl.width / 2;
-    canvasEl.style.height = canvasEl.height / 2;
+
+    canvasEl.style.width = `${canvasEl.width / 2}px`;
+    canvasEl.style.height = `${canvasEl.height / 2}px`;
 
     canvasEl.id = 'fabricCanvas' + Date.now();
     canvasEl.style.border = '1px solid darkgreen';

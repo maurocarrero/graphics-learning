@@ -27,14 +27,14 @@ define([
 ) {
   return {
     run: function() {
-      // canvasDrawingPaths.run();
-      // canvasCurvesAndArcs.run();
-      // canvasDrawingStyles.run();
-      // canvasGradientFills.run();
-      // canvasText.run();
-      // canvasImages.run();
-      // canvasEffects.run();
-      // canvasShadows.run();
+      canvasDrawingPaths.run();
+      canvasCurvesAndArcs.run();
+      canvasDrawingStyles.run();
+      canvasGradientFills.run();
+      canvasText.run();
+      canvasImages.run();
+      canvasEffects.run();
+      canvasShadows.run();
       canvasTransformations.run();
       canvasPixels.run();
       canvasEvents.run();

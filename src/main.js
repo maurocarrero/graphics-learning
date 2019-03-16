@@ -20,7 +20,8 @@ requirejs.config({
     canvasTransformations: 'canvas/transformations',
     canvasPixels: 'canvas/pixels',
     canvasEvents: 'canvas/events',
-    canvasAnimations: 'canvas/animations'
+    canvasAnimations: 'canvas/animations',
+    session: 'session'
   },
   shim: {
     fabric: {
@@ -29,7 +30,9 @@ requirejs.config({
   }
 });
 
-requirejs(['canvasMain', 'fabricMain'], function(canvasMain, fabricMain) {
-  canvasMain.run();
-  fabricMain.run();
+requirejs(['canvasMain', 'fabricMain', 'session'], function(canvasMain, fabricMain, session) {
+  // canvasMain.run();
+  // fabricMain.run();
+  session.runNative();
+  session.runFabric();
 });

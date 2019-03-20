@@ -5,35 +5,40 @@ define(['fabric'], function (fabric) {
       backgroundColor: cfg.canvas.backgroundColor
     });
 
-    canvas.setWidth(cfg.canvas.w);
-    canvas.setHeight(cfg.canvas.h);
+    canvas.setWidth(cfg.canvas.width);
+    canvas.setHeight(cfg.canvas.height);
 
     return canvas;
   }
 
   function drawGrid(canvas, cfg, mask) {
-    // draw x grid
-    for (var i = 0; i < (cfg.canvas.w / cfg.grid); i++) {
+    const lines = [];
+
+    for (var i = 0; i < (cfg.canvas.width / cfg.grid); i++) {
       const x = i * cfg.grid;
-      const line = new fabric.Line([x, 0, x, cfg.canvas.w], cfg.line)
-      // line.clipPath = mask;
-      canvas.add(line);
+      lines.push(new fabric.Line([x, 0, x, cfg.canvas.width], cfg.line));
     }
 
-    // draw y grid
-    for (var i = 0; i < (cfg.canvas.h / cfg.grid); i++) {
+    for (var i = 0; i < (cfg.canvas.height / cfg.grid); i++) {
       const y = i * cfg.grid;
-      const line = new fabric.Line([0, y, cfg.canvas.w, y], cfg.line);
-      // line.clipPath = mask;
-      canvas.add(line);
+      lines.push(new fabric.Line([0, y, cfg.canvas.width, y], cfg.line));
     }
+
+    const grid = new fabric.Group(lines);
+
+    grid.clipPath = mask;
+
+    grid.hasControls = false;
+    grid.selectable = false;
+
+    canvas.add(grid);
   }
 
-  function createGalleyMask(cfg) {
+  function addMask(canvas, cfg) {
     const ellipse = new fabric.Ellipse({
-      width: cfg.canvas.w,
-      rx: cfg.canvas.w / 2,
-      ry: cfg.canvas.h / 2,
+      width: cfg.canvas.width,
+      rx: cfg.canvas.width / 2,
+      ry: cfg.canvas.height / 3,
       originX: 'center',
       originY: 'center'
     });
@@ -41,8 +46,8 @@ define(['fabric'], function (fabric) {
     const rect = new fabric.Rect({
       left: 0,
       top: 0,
-      width: cfg.canvas.w,
-      height: cfg.canvas.h - cfg.canvas.h / 2,
+      width: cfg.canvas.width,
+      height: cfg.canvas.height,
       originX: 'center'
     });
 
@@ -51,37 +56,113 @@ define(['fabric'], function (fabric) {
       top: 0
     });
 
-    mask.hasControls = false;
-    mask.selectable = false;
-
-    return mask;
+    canvas.clipPath = mask;
   }
 
-  function addCabinets(canvas) {
-    // Add Cabinet
-    const cabinet = new fabric.Rect({
-      left: 100,
-      top: 100,
-      width: 100,
-      height: 200,
-      fill: '#faa',
-      originX: 'left',
-      originY: 'top',
-      centeredRotation: true
+  function createGenericWheel(cfg) {
+    return new fabric.Rect({
+      width: 5,
+      height: 15,
+      originX: cfg.cabinet.originX,
+      originY: cfg.cabinet.originY,
+      fill: '#ccc',
+      rx: 4,
+      ry: 4
     });
+  }
+
+  function createWheels(cfg) {
+    const wheel1 = createGenericWheel(cfg);
+    wheel1.set({
+      left: cfg.cabinet.width / 3 - 5,
+      top: cfg.cabinet.height - 5,
+    });
+
+    const wheel2 = createGenericWheel(cfg);
+    wheel2.set({
+      left: cfg.cabinet.width / 3 + 2,
+      top: cfg.cabinet.height - 5
+    });
+
+    const wheel3 = createGenericWheel(cfg);
+    wheel3.set({
+      left: cfg.cabinet.width - cfg.cabinet.width / 3 - 5,
+      top: cfg.cabinet.height - 5
+    });
+
+    const wheel4 = createGenericWheel(cfg);
+    wheel4.set({
+      left: cfg.cabinet.width - cfg.cabinet.width / 3 + 2,
+      top: cfg.cabinet.height - 5
+    });
+
+    return new fabric.Group([wheel1, wheel2, wheel3, wheel4]);
+  }
+
+  function createCabinet(cfg, idx) {
+    const rect = new fabric.Rect({
+      width: cfg.cabinet.width,
+      height: cfg.cabinet.height,
+      originX: cfg.cabinet.originX,
+      originY: cfg.cabinet.originY,
+      fill: cfg.cabinet.fill,
+      rx: cfg.cabinet.rx,
+      ry: cfg.cabinet.ry,
+      stroke: cfg.cabinet.stroke,
+      strokeWidth: cfg.cabinet.strokeWidth
+    });
+    const rectBottom = new fabric.Rect({
+      top: cfg.cabinet.height - 5,
+      width: cfg.cabinet.width,
+      height: 5,
+      originX: cfg.cabinet.originX,
+      originY: cfg.cabinet.originY,
+      fill: '#ccc'
+    });
+
+    const wheels = createWheels(cfg);
+
+    const title = new fabric.Text(`${idx + 500} - ${cfg.cabinet.title.text}`, {
+      left: cfg.cabinet.title.left,
+      top: cfg.cabinet.title.top,
+      fontSize: cfg.cabinet.text.fontSize,
+      fontFamily: cfg.cabinet.text.fontFamily,
+      stroke: cfg.cabinet.text.stroke
+    });
+    const subtitle = new fabric.Text(cfg.cabinet.subtitle.text, {
+      left: cfg.cabinet.subtitle.left,
+      top: cfg.cabinet.subtitle.top,
+      fontSize: cfg.cabinet.text.fontSize,
+      fontFamily: cfg.cabinet.text.fontFamily,
+      stroke: cfg.cabinet.text.stroke
+    });
+
+    const cabinet = new fabric.Group([rect, title, subtitle, rectBottom, wheels], {
+      left: ((idx + 1) * cfg.cabinet.width) + 10 * idx,
+      top: cfg.cabinet.top
+    });
+
     cabinet.hasControls = false;
-    canvas.add(cabinet);
+
+    return cabinet;
+  }
+
+  function addCabinets(canvas, cfg) {
+    for (let i = 0; i < 5; i++) {
+      canvas.add(createCabinet(cfg, i));
+    }
   }
 
   function snapToGrid(canvas, cfg) {
-    // Snap to grid
     canvas.on('object:moving', function (options) {
       const { target } = options;
 
       const left = Math.round(target.left / cfg.grid) * cfg.grid;
       const top = Math.round(target.top / cfg.grid) * cfg.grid;
 
-      if (left > 0 && left + target.width < cfg.canvas.w) {
+      const leftIsWithinXAxisBoundaries = left > 0 && left + target.width < cfg.canvas.width;
+
+      if (leftIsWithinXAxisBoundaries) {
         target.set({
           left
         });
@@ -92,12 +173,14 @@ define(['fabric'], function (fabric) {
           });
         } else {
           target.set({
-            left: cfg.canvas.w - target.width
+            left: cfg.canvas.width - target.width
           });
         }
       }
 
-      if (top > 0 && top + target.height < cfg.canvas.h) {
+      const topIsWithinYAxisBoundaries = top > 0 && top + target.height < cfg.canvas.height
+
+      if (topIsWithinYAxisBoundaries) {
         target.set({
           top
         });
@@ -108,7 +191,7 @@ define(['fabric'], function (fabric) {
           });
         } else {
           target.set({
-            top: cfg.canvas.h - target.height
+            top: cfg.canvas.height - target.height - cfg.cabinet.strokeWidth
           });
         }
       }
@@ -117,9 +200,8 @@ define(['fabric'], function (fabric) {
 
   function runGalley(cfg) {
     const canvas = createCanvas(cfg);
-    const mask = createGalleyMask(cfg);
-
-    drawGrid(canvas, cfg, mask);
+    addMask(canvas, cfg);
+    drawGrid(canvas, cfg);
     addCabinets(canvas, cfg);
     snapToGrid(canvas, cfg);
   }
@@ -127,15 +209,43 @@ define(['fabric'], function (fabric) {
   function run () {
     runGalley({
       canvas: {
-        w: 794,
-        h: 660,
-        backgroundColor: '#efefef'
+        width: 794,
+        height: 660,
+        backgroundColor: '#fefefe'
       },
       line: {
-        stroke: '#dedede',
+        stroke: '#efefef',
         selectable: false
       },
-      grid: 25
+      cabinet: {
+        left: 400,
+        top: 300,
+        width: 100,
+        height: 300,
+        originX: 'left',
+        originY: 'top',
+        fill: '#f2f2f2',
+        rx: 2,
+        ry: 2,
+        stroke: '#bcbcbc',
+        strokeWidth: 1,
+        title: {
+          left: 10,
+          top: 10,
+          text: 'FULL'
+        },
+        subtitle: {
+          left: 10,
+          top: 30,
+          text: 'RS - AFT'
+        },
+        text: {
+          fontSize: 12,
+          fontFamily: 'ArialMT',
+          stroke: '#575757'
+        }
+      },
+      grid: 12
     });
   }
   

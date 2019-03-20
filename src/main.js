@@ -20,7 +20,8 @@ requirejs.config({
     canvasTransformations: 'canvas/transformations',
     canvasPixels: 'canvas/pixels',
     canvasEvents: 'canvas/events',
-    canvasAnimations: 'canvas/animations'
+    canvasAnimations: 'canvas/animations',
+    galleyPoc: 'galley_poc'
   },
   shim: {
     fabric: {
@@ -29,7 +30,6 @@ requirejs.config({
   }
 });
 
-requirejs(['canvasMain', 'fabricMain'], function(canvasMain, fabricMain) {
-  canvasMain.run();
-  fabricMain.run();
+requirejs(['galleyPoc'], function(galleyPoc) {
+  galleyPoc.run();
 });

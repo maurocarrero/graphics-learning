@@ -9,6 +9,11 @@ define(['fabric'], function (fabric) {
       const canvas = document.getElementById('native');
       const ctx = canvas.getContext('2d');
 
+      // https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect
+      const domRect = canvas.getBoundingClientRect();
+      const W = domRect.width;
+      const H = domRect.height;
+
       // https://www.html5rocks.com/en/tutorials/canvas/hidpi/
       const ratio = window.devicePixelRatio;
 

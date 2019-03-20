@@ -7,11 +7,18 @@ define(['fabric'], function (fabric) {
   return {
     runNative: function () {
       const canvas = document.getElementById('native');
-
-      canvas.width = W;
-      canvas.height = H;
-
       const ctx = canvas.getContext('2d');
+
+      // https://www.html5rocks.com/en/tutorials/canvas/hidpi/
+      const ratio = window.devicePixelRatio;
+
+      canvas.width = W * ratio;
+      canvas.height = H * ratio;
+
+      canvas.style.width = `${W}px`;
+      canvas.style.height = `${H}px`;
+
+      ctx.scale(ratio, ratio);
 
       ctx.fillStyle = RECT_COLOR;
       ctx.fillRect(

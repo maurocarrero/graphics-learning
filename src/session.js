@@ -1,20 +1,20 @@
 define(['fabric', 'utils'], function (fabric, utils) {
   const W = 600;
   const H = 600;
-  const TRIANGLE_COLOR = '#007E00';
-  const SIDE = 200;
+  const LINE_COLOR = 'rgba(256, 10, 200, .7)';
+  const LINE_LENGTH = 200
 
   return {
     runNative: function () {
       const canvas = utils.setupCanvas(document.getElementById('native'), W, H);
       const ctx = canvas.getContext('2d');
 
-      ctx.fillStyle = TRIANGLE_COLOR;
+      // virtual cursor position
       ctx.beginPath();
-      ctx.moveTo(W / 2, H / 2 - SIDE / 2);
-      ctx.lineTo(W / 2 + SIDE / 2, H / 2 + SIDE / 2);
-      ctx.lineTo(W / 2 - SIDE / 2, H / 2 + SIDE / 2);
-      ctx.fill();
+      ctx.strokeStyle = LINE_COLOR;
+      ctx.moveTo(W / 2 - LINE_LENGTH / 2, H / 2);
+      ctx.lineTo(W / 2 + LINE_LENGTH / 2, H / 2)
+      ctx.stroke();
     },
 
     runFabric: function () {
@@ -25,28 +25,17 @@ define(['fabric', 'utils'], function (fabric, utils) {
         height: H
       });
 
-      // const rect = new fabric.Rect({
-      //   width: 200,
-      //   height: 200,
-      //   left: W / 2,
-      //   top: H / 2,
-      //   fill: '#373737',
-      //   originX: 'center',
-      //   originY: 'center'
-      // });
-      // canvas.add(rect);
+      const line = new fabric.Line([
+          W / 2 - LINE_LENGTH / 2,
+          H / 2,
+          W / 2 + LINE_LENGTH / 2,
+          H / 2
+        ], {
+          stroke: LINE_COLOR
+        }
+      );
 
-      const triangle = new fabric.Triangle({
-        width: SIDE,
-        height: SIDE,
-        left: W / 2,
-        top: H / 2,
-        fill: TRIANGLE_COLOR,
-        originX: 'center',
-        originY: 'center'
-      });
-
-      canvas.add(triangle);
+      canvas.add(line);
     }
   };
 });

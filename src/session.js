@@ -1,62 +1,41 @@
-define(['fabric'], function (fabric) {
+define(['fabric', 'utils'], function (fabric, utils) {
   const W = 600;
   const H = 600;
-  const RECT_COLOR = '#191919'; 
-  const CIRCLE_COLOR = '#DE0000'; 
+  const LINE_COLOR = 'rgba(256, 10, 200, .7)';
+  const LINE_LENGTH = 200
 
   return {
     runNative: function () {
-      const canvas = document.getElementById('native');
-
-      canvas.width = W;
-      canvas.height = H;
-
+      const canvas = utils.setupCanvas(document.getElementById('native'), W, H);
       const ctx = canvas.getContext('2d');
 
-      ctx.fillStyle = RECT_COLOR;
-      ctx.fillRect(
-        0,                // x or left
-        0,                // y or top
-        W,                // width
-        H                 // height
-      );
-      
-      ctx.fillStyle = CIRCLE_COLOR;
-      ctx.arc(
-        W / 2,
-        H / 2,
-        W / 4,            // radius
-        0,                // start angle
-        Math.PI * 2       // end angle
-      );     
-      ctx.fill();
+      // virtual cursor position
+      ctx.beginPath();
+      ctx.strokeStyle = LINE_COLOR;
+      ctx.moveTo(W / 2 - LINE_LENGTH / 2, H / 2);
+      ctx.lineTo(W / 2 + LINE_LENGTH / 2, H / 2)
+      ctx.stroke();
     },
 
     runFabric: function () {
       const canvasElement = document.getElementById('fabric');
-      const canvas = new fabric.Canvas(canvasElement);
-
-      canvas.setHeight(W);
-      canvas.setWidth(H);
-
-      const rect = new fabric.Rect({
-        left: 0,
-        top: 0,
-        width: canvas.getWidth(),
-        height: canvas.getHeight(),
-        fill: RECT_COLOR
+      const canvas = new fabric.Canvas(canvasElement, { 
+        backgroundColor: 'lightblue',
+        width: W,
+        height: H
       });
 
-      const circle = new fabric.Circle({
-        left: canvas.getWidth() / 2,
-        top: canvas.getHeight() / 2,
-        radius: canvas.getWidth() / 4,
-        fill: CIRCLE_COLOR,
-        originX: 'center',
-        originY: 'center'
-      });
+      const line = new fabric.Line([
+          W / 2 - LINE_LENGTH / 2,
+          H / 2,
+          W / 2 + LINE_LENGTH / 2,
+          H / 2
+        ], {
+          stroke: LINE_COLOR
+        }
+      );
 
-      canvas.add(rect, circle);
+      canvas.add(line);
     }
   };
 });

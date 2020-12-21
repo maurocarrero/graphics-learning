@@ -1,6 +1,6 @@
 {
-  "name": "fabricjs-learning",
-  "version": "1.0.0",
+  "name": "@mcm/fabricjs__sink",
+  "version": "0.0.1",
   "description": "Learning Fabric.js, canvas, graphics.",
   "main": "index.html",
   "scripts": {

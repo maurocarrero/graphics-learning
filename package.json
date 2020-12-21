@@ -22,6 +22,6 @@
   },
   "homepage": "https://github.com/maurocarrero/fabricjs-learning#readme",
   "dependencies": {
-    "serve": "^10.1.2"
+    "serve": "^11.3.2"
   }
 }
